@@ -4,8 +4,7 @@
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 
-
-[![HitCount](http://hits.dwyl.com/meghdadFar/snlp.svg)](http://hits.dwyl.com/meghdadFar/snlp)
+[![HitCount](http://hits.dwyl.com/meghdadFar/rl-nlp.svg)](http://hits.dwyl.com/meghdadFar/snlp)
 
 
 Reinforcement Learning for NLP (RL-NLP) is a package that facilitates the use of reinforcement learning for NLP. 
