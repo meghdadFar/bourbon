@@ -13,14 +13,14 @@ class Egreedy(object):
 
 
 class QL:
-    def __init__(self, qtable, step_function, 
+    def __init__(self, qtable, rl_step, 
                  gamma=0.5,
                  egreedy_first=0.5,
                  egreedy_last=0.9,
                  egreedy_decay=0.1):
 
         self.q_table = qtable
-        self.step_function = step_function
+        self.rl_step = rl_step
         self.gamma = gamma
         self.egreedy = Egreedy(egreedy_first, egreedy_decay, egreedy_last)
 
@@ -35,7 +35,7 @@ class QL:
 
         return randint(0, n_actions)
 
-    
+
     def _select_train_action(self, state_index):
         # Select action based on the adaptive epsilon greedy mechanism
         if torch.rand(1)[0] > self.egreedy.egreedy_first:
@@ -48,19 +48,28 @@ class QL:
             action = self._random_action(len(self.q_table.actions))  # Index of the best action
 
         return action
-    
 
-    def train(self, state):
-         # Convert state to index
+
+    def train(self):
+        # Get the current state
+        state = self.rl_step.get_state()
+
+        # Convert state to index
         state_index = self.q_table.get_state_index(state)
+
         # Reinforcement Learning Core Algorithm in 4 steps
         # 1. Select Action
         action = self._select_train_action(state_index)
         if self.egreedy.egreedy_first > self.egreedy.egreedy_last:
             self.egreedy.egreedy_first *= self.egreedy.egreedy_decay
 
+        # Convert action to index
+        action_index = self.q_table.get_state_index(action)
+
         # 2. Get reward and the new state
-        new_state, reward, done = self.step_function(action)
+        reward = self.rl_step.get_reward()
+        new_state = self.rl_step.get_state()
+        new_state_index = self.q_table.get_state_index(state)
 
         # 3. Update Q-table
-        self.q_table[state, action] = reward + self.gamma * torch.max(self.q_table[new_state])
+        self.q_table[state_index, action_index] = reward + self.gamma * torch.max(self.q_table[new_state_index])
