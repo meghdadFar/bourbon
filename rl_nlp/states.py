@@ -1,10 +1,16 @@
-class DialogueState:
-    """State of the dialogue which can be defined by the user, via the state argument. 
+from functools import reduce
+
+class State:
+    """State of the enviroment. 
     """
 
     def __init__(self, state_space):
-        """
 
+        self.state_space = state_space
+        self.num_states = reduce(lambda x, y: x*y, state_space)
+        self.current = None
+        
+        """
         Args:
             state_space (list): A list of integers. Each index represents one dimension of the state space and the value
                           at that index represents the number of possible values for that dimension. For instance, if the first index
@@ -13,15 +19,7 @@ class DialogueState:
         Returns:
 
         """
-        self.current = None
-
-    def step(self, state):
-        """Updates the current state wrt state. 
-
-        Args:
-            state (list): 
-        """
-            self.current = 5
+    
 
 
 

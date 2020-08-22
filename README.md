@@ -1,6 +1,6 @@
 # rl-nlp (work in progress)
 
-[![PyPI version](https://badge.fury.io/py/snlp.svg?&kill_cache=1)](https://badge.fury.io/py/snlp)
+[![PyPI version](https://badge.fury.io/py/rl-nlp.svg?&kill_cache=1)](https://badge.fury.io/py/snlp)
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 

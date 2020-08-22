@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
 
 class RLStep(ABC):
-    def __init__(self, value):
-        self.value = value
 
     @abstractmethod
     def step(self, action):
@@ -12,8 +10,8 @@ class RLStep(ABC):
             action (int) index of an action
 
         Returns:
-            new_state (state)
-            reward (int)
+            new_state (list)
+            reward (float)
             done (bool) whether or not the conversation reached its final state
         """
-        raise NotImplementedError
+        raise NotImplementedError("Abstract method step must be implemented.")
