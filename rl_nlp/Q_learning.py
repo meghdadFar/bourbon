@@ -12,7 +12,7 @@ class Egreedy(object):
         self.egreedy_last = egreedy_last
 
 
-class QL:
+ class QL:
     def __init__(self, qtable, rl_step, 
                  gamma=0.5,
                  egreedy_first=0.5,

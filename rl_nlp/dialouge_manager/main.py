@@ -15,7 +15,6 @@ class MyRlStep(RLStep):
 if __name__ == "__main__":
 
     mrls = MyRlStep()
-    # ds = DialogueState(state_space=[2, 3, 3])
     state_space=[2, 3, 3]
     actions = ['a', 'b', 'c']
 
