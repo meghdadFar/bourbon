@@ -8,8 +8,15 @@ class QTable:
     def __init__(self, state_space, actions):
         """
 
-        Args:
-            state (State)
+       Args:
+            state_space (list): A list of integers. Each index represents one dimension of the state space and the value
+            at that index represents the number of possible values for that dimension. For instance, if the first index
+            represents a 5 class concept, the value at this index should be 5. 
+            
+            actions (list): A list of possible actions that the RL agent is allowed to take. 
+
+        Returns:
+
         """
 
         self.state_space = state_space
@@ -32,8 +39,8 @@ class QTable:
             
         """
         # Create all combinations
-        elements = [[i for i in range(l)] for l in self.state_space]
-        all_possible_states = list(itertools.product(*elements)) # for state_space [2, 3, 3]], res looks like: [(0, 0, 0), (0, 0, 1), (0, 0, 2), (0, 1, 0), (0, 1, 1), (0, 1, 2), (0, 2, 0), ...]
+        elements = [[i for i in range(1, l+1)] for l in self.state_space]
+        all_possible_states = list(itertools.product(*elements)) # for state_space [2, 3, 3]], res looks like: [(1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 2, 1), (1, 2, 2), (1, 2, 3), (1, 3, 1), ...]
 
         state_index_dict = {}
         index_state_dict = {}

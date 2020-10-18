@@ -4,6 +4,9 @@ from rl_nlp.qtable import QTable
 from rl_nlp.Q_learning import QL
 from random import randint
 
+import time
+
+
 class MyRlStep(RLStep):
     
     def get_state(self):
@@ -13,7 +16,7 @@ class MyRlStep(RLStep):
         state.append(randint(0,2))
         return state
     
-    def get_reward(self):
+    def get_reward(self, action='x'):
         return randint(1,5)
 
 
@@ -30,3 +33,5 @@ if __name__ == "__main__":
     logging.info('Training the model...')
     while True:
         ql.train()
+        time.sleep(0.1)
+        

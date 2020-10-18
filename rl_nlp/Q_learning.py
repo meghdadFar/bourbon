@@ -15,13 +15,15 @@ class Egreedy(object):
 class QL:
     def __init__(self, qtable, rl_step, 
                  gamma=0.5,
+                 alpha=0.1,
                  egreedy_first=0.5,
-                 egreedy_last=0.9,
-                 egreedy_decay=0.1):
+                 egreedy_last=0.2,
+                 egreedy_decay=0.999):
 
         self.q_table = qtable
         self.rl_step = rl_step
         self.gamma = gamma
+        self.alpha = alpha
         self.egreedy = Egreedy(egreedy_first, egreedy_decay, egreedy_last)
 
     
@@ -63,9 +65,13 @@ class QL:
             self.egreedy.egreedy_first *= self.egreedy.egreedy_decay
 
         # 2. Get reward and the new state
-        reward = self.rl_step.get_reward()
+        reward = self.rl_step.get_reward(state, self.q_table.actions[action_index])
         new_state = self.rl_step.get_state()
-        new_state_index = self.q_table.get_state_index(state)
+        new_state_index = self.q_table.get_state_index(new_state)
 
-        # 3. Update Q-table
-        self.q_table.q_table[state_index, action_index] = reward + self.gamma * torch.max(self.q_table.q_table[new_state_index])
+        # 3. Update Q-table via Q-learning rule: Q[s,a] + α(r + γmaxa' Q[s',a'] - Q[s,a])
+        q_sa = self.q_table.q_table[state_index, action_index]
+        q_spap = torch.max(self.q_table.q_table[new_state_index])
+        update_value = q_sa + self.alpha *(reward + self.gamma*q_spap - q_sa)
+        self.q_table.q_table[state_index, action_index] = update_value
+        return reward, self.q_table, self.egreedy.egreedy_first

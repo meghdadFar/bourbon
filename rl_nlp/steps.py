@@ -3,11 +3,9 @@ from abc import ABC, abstractmethod
 class RLStep(ABC):
 
     @abstractmethod
-    def get_state(self, action):
+    def get_state(self):
         """Makes an API call to get the new state and the reward resulted from action.
-
-        Args:
-            action (int) index of an action
+            
 
         Returns:
             new_state (list)
@@ -16,11 +14,11 @@ class RLStep(ABC):
     
     
     @abstractmethod
-    def get_reward(self):
+    def get_reward(self, state, action):
         """Makes an API call to get the reward resulted from action.
         
         Args:
-            action (int) index of an action
+            action
 
         Returns:
             reward (float)
