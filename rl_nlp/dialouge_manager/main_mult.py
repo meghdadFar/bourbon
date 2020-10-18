@@ -10,6 +10,7 @@ from functools import reduce
 import visdom
 import numpy as np
 import torch
+import itertools
 
 
 
@@ -32,6 +33,27 @@ class MyRlStep(RLStep):
         return reward
 
 
+
+def evaluate_my_rl_agent(state_space, actions, q_table):
+    # Create all combinations
+    elements = [[i for i in range(1, l+1)] for l in state_space]
+    all_possible_states = list(itertools.product(*elements))
+    
+    error = 0
+
+    for s in all_possible_states:    
+        actual_product = s[0]*s[1]
+        state_index = q_table.get_state_index(s)
+        action_index = torch.argmax(q_table.q_table[state_index]).item()
+        rl_product = q_table.actions[action_index]
+        if actual_product != rl_product:
+            error += 1
+
+    error_perc = error*100/len(all_possible_states)
+    return error_perc
+
+
+
 if __name__ == "__main__":
 
     logging.info('Creating required objects')
@@ -49,13 +71,14 @@ if __name__ == "__main__":
 
     
     logging.info('Training the model...')
-    num_epochs = 80000
+    num_epochs = 250000
     for e in range(1, num_epochs):
-        reward, q_table, egreedy = ql.train()
-        if e % 100 == 0:
+        q_table = ql.train()
+        if e % 1000 == 0:
+            eval_results = evaluate_my_rl_agent(state_space, actions, q_table)
             viz.line(
                 X=np.array([e]),
-                Y=np.array([reward]),
+                Y=np.array([eval_results]),
                 win=win,
                 name='Error',
                 update='append')

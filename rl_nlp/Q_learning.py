@@ -14,10 +14,10 @@ class Egreedy(object):
 
 class QL:
     def __init__(self, qtable, rl_step, 
-                 gamma=0.5,
+                 gamma=0.01,
                  alpha=0.1,
                  egreedy_first=0.5,
-                 egreedy_last=0.2,
+                 egreedy_last=0.05,
                  egreedy_decay=0.999):
 
         self.q_table = qtable
@@ -74,4 +74,4 @@ class QL:
         q_spap = torch.max(self.q_table.q_table[new_state_index])
         update_value = q_sa + self.alpha *(reward + self.gamma*q_spap - q_sa)
         self.q_table.q_table[state_index, action_index] = update_value
-        return reward, self.q_table, self.egreedy.egreedy_first
+        return self.q_table
