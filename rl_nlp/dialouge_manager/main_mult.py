@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
     
     logging.info('Training the model...')
-    num_epochs = 250000
+    num_epochs = 70000
     for e in range(1, num_epochs):
         q_table = ql.train()
         if e % 1000 == 0:
@@ -87,8 +87,13 @@ if __name__ == "__main__":
 
 
     while True:
-        num = input ("Enter number two numbers separated by a comma, to see their product: ")
-        a, b = num.split(',')
+        num = input ("Enter two numbers separated by a comma, to see their product: ")
+        try:
+            a, b = num.split(',')
+        except:
+            logging.error('Input format seems to be wrong, please try again.')
+            continue
+            
         a = int(a)
         b = int(b)
 
