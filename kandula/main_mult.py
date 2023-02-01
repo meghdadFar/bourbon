@@ -1,9 +1,9 @@
 import time
 
-from rl_nlp import logging
-from rl_nlp.steps import RLStep
-from rl_nlp.qtable import QTable
-from rl_nlp.Q_learning import QL
+from kandula import logging
+from kandula.steps import RLStep
+from kandula.qtable import QTable
+from kandula.Q_learning import QL
 
 from random import randint
 from functools import reduce
