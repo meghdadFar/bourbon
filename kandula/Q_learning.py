@@ -1,11 +1,14 @@
 from rl_nlp import logger
 import torch
-from rl_nlp.steps import RLStep
+from kandula.qtable import QTable
+from kandula.steps import RLStep
 from random import randint
+from typing import Type
 
 
 
-class Egreedy(object):
+
+class Egreedy:
     def __init__(self, egreedy_first, egreedy_decay, egreedy_last):
         self.egreedy_first = egreedy_first
         self.egreedy_decay = egreedy_decay
@@ -14,12 +17,13 @@ class Egreedy(object):
 
 class QL:
     """Implements Q-learning."""
-    def __init__(self, qtable, rl_step, 
-                 gamma=0.01,
-                 alpha=0.1,
-                 egreedy_first=0.5,
-                 egreedy_last=0.05,
-                 egreedy_decay=0.999):
+    def __init__(self, qtable: Type[QTable],
+                 rl_step: Type[RLStep],
+                 gamma: float=0.01,
+                 alpha: float=0.1,
+                 egreedy_first: float=0.5,
+                 egreedy_last: float=0.05,
+                 egreedy_decay: float=0.999):
         """
         
         Args:
@@ -34,7 +38,7 @@ class QL:
             None
         """
 
-        self.q_table = qtable
+        self.q_table= qtable
         self.rl_step = rl_step
         self.gamma = gamma
         self.alpha = alpha
