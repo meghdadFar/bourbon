@@ -13,12 +13,26 @@ class Egreedy(object):
 
 
 class QL:
+    """Implements Q-learning."""
     def __init__(self, qtable, rl_step, 
                  gamma=0.01,
                  alpha=0.1,
                  egreedy_first=0.5,
                  egreedy_last=0.05,
                  egreedy_decay=0.999):
+        """
+        
+        Args:
+            qtable:
+            gamma:
+            alpha:
+            egreedy_first:
+            egreedy_last:
+            egreedy_decay:
+
+        Returns:
+            None
+        """
 
         self.q_table = qtable
         self.rl_step = rl_step
@@ -29,8 +43,10 @@ class QL:
     
     def _random_action(self, n_actions):
         """Select a random action from among actions in the input
+        
         Args:
             n_actions (int): number of actions
+        
         Returns:
             action (int) index of an action
         """
@@ -39,6 +55,15 @@ class QL:
 
 
     def _select_train_action(self, state_index):
+        """Helper function to selection a train action based on the adaptive epsilon greedy mechanism.
+        
+        Args:
+            state_index:
+
+        Returns:
+            action
+
+        """
         # Select action based on the adaptive epsilon greedy mechanism
         if torch.rand(1)[0] > self.egreedy.egreedy_first:
             # Select the action that maximizes future rewards with a prob of 1-egreedy
