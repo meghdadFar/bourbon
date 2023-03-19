@@ -9,7 +9,7 @@ class QTable:
         """
 
        Args:
-            state_space (list): A list of integers. Each index represents one dimension of the state space and the value
+            state_space (list): A list of integers. Each index of the list represents one dimension of the state space and the value
             at that index represents the number of possible values for that dimension. For instance, if the first index
             represents a 5 class concept, the value at this index should be 5. 
             
