@@ -1,4 +1,3 @@
-from rl_nlp import logger
 import torch
 from kandula.qtable import QTable
 from kandula.steps import RLStep
@@ -9,7 +8,22 @@ from typing import Type
 
 
 class Egreedy:
-    def __init__(self, egreedy_first, egreedy_decay, egreedy_last):
+    """Implements parameters of E-greedy algorithm."""
+    def __init__(self,
+                 egreedy_first: float,
+                 egreedy_decay: float,
+                 egreedy_last:float) -> None:
+        """
+        
+        Args:
+            egreedy_first:
+            egreedy_decay:
+            egreedy_last: 
+
+        Returns:
+            None
+
+        """
         self.egreedy_first = egreedy_first
         self.egreedy_decay = egreedy_decay
         self.egreedy_last = egreedy_last
@@ -25,7 +39,6 @@ class QL:
                  egreedy_last: float=0.05,
                  egreedy_decay: float=0.999):
         """
-        
         Args:
             qtable:
             gamma:
@@ -45,7 +58,7 @@ class QL:
         self.egreedy = Egreedy(egreedy_first, egreedy_decay, egreedy_last)
 
     
-    def _random_action(self, n_actions):
+    def _random_action(self, n_actions: int):
         """Select a random action from among actions in the input
         
         Args:
@@ -54,7 +67,6 @@ class QL:
         Returns:
             action (int) index of an action
         """
-
         return randint(0, n_actions-1)
 
 
@@ -81,6 +93,14 @@ class QL:
 
 
     def train(self):
+        """Trains the RL system by updating the Q-table via Q-learning rule.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        """
         # Get the current state
         state = self.rl_step.get_state()
 
