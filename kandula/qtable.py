@@ -84,26 +84,26 @@ class QTable:
 
 
     def get_state_index(self, state):
-        """Converts state into index
+        """Converts state into index.
 
         Args:
-            state ([int]): 
+            state ([int]):
+
         Returns:
             state_index (int): Unique index value of the state
         """
         si = self.state_index[",".join(map(str, state))]
-
         return si
 
 
     def get_action_index(self, action):
-        """Converts action into index
+        """Converts action into index.
 
         Args:
             state (string):
+
         Returns:
             action_index (int): Unique index value of the action
         """        
         ai = self.action_index[action]
-
         return ai
