@@ -39,30 +39,28 @@ class QTable:
         self.q_table = torch.zeros([num_states, num_actions])
         self.state_index_dict, _ = self._create_state_index()
         self.action_index_dict, _ = self._create_action_index()
-
     
     def _create_state_index(self):
         """Creates two dictionaries to map states to an index, and state indexes to a states.
-        
+
         Args:
             None
-            
+
         Returns:
             state_index_dict
             index_state_dict
         """
         # Create all combinations
         elements = [[i for i in range(1, l+1)] for l in self.state_space]
-        all_possible_states = list(itertools.product(*elements)) # for state_space [2, 3, 3]], `all_possible_states` looks like: [(1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 2, 1), (1, 2, 2), (1, 2, 3), (1, 3, 1), .., (5, 5, 5)]
+        all_possible_states = list(itertools.product(*elements))  # for state_space [2, 3, 3]], `all_possible_states` looks like: [(1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 2, 1), (1, 2, 2), (1, 2, 3), (1, 3, 1), .., (5, 5, 5)]
 
         state_index_dict = {}
         index_state_dict = {}
         for k in range(len(all_possible_states)):
             state_index_dict[",".join(map(str, all_possible_states[k]))] = k
             index_state_dict[k] = all_possible_states[k]
-        
+
         return state_index_dict, index_state_dict
-        
 
     def _create_action_index(self):
         """Creates two dictionaries to map actions to their indexes and action indexes to actions.
@@ -79,9 +77,8 @@ class QTable:
         for k in range(len(self.actions)):
             action_index_dict[str(self.actions[k])] = k
             index_action_dict[k] = self.actions[k]
-        
-        return action_index_dict, index_action_dict
 
+        return action_index_dict, index_action_dict
 
     def get_state_index(self, state):
         """Converts state into index.
@@ -94,7 +91,6 @@ class QTable:
         """
         state_index = self.state_index_dict[",".join(map(str, state))]
         return state_index
-
 
     def get_action_index(self, action):
         """Converts action into index.
