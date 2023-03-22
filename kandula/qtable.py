@@ -45,8 +45,10 @@ class QTable:
         """Creates an index dict for all possible unique variants of state vector.
         
         Args:
+            None
             
         Returns:
+            None
             
         """
         # Create all combinations
