@@ -37,8 +37,8 @@ class QTable:
         num_states = reduce(lambda x, y: x*y, state_space)
         num_actions = len(actions)
         self.q_table = torch.zeros([num_states, num_actions])
-        self.state_index, _ = self._create_state_index()
-        self.action_index, _ = self._create_action_index()
+        self.state_index_dict, _ = self._create_state_index()
+        self.action_index_dict, _ = self._create_action_index()
 
     
     def _create_state_index(self):
@@ -90,10 +90,10 @@ class QTable:
             state ([int]):
 
         Returns:
-            state_index (int): Unique index value of the state
+            state_index (int): Unique index value of the state.
         """
-        si = self.state_index[",".join(map(str, state))]
-        return si
+        state_index = self.state_index_dict[",".join(map(str, state))]
+        return state_index
 
 
     def get_action_index(self, action):
@@ -104,6 +104,6 @@ class QTable:
 
         Returns:
             action_index (int): Unique index value of the action
-        """        
-        ai = self.action_index[action]
-        return ai
+        """
+        action_index = self.action_index_dict[action]
+        return action_index
