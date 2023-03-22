@@ -42,14 +42,14 @@ class QTable:
 
     
     def _create_state_index(self):
-        """Creates an index dict for all possible unique variants of state vector.
+        """Creates two dictionaries to map states to an index, and state indexes to a states.
         
         Args:
             None
             
         Returns:
-            None
-            
+            state_index_dict
+            index_state_dict
         """
         # Create all combinations
         elements = [[i for i in range(1, l+1)] for l in self.state_space]
@@ -65,6 +65,15 @@ class QTable:
         
 
     def _create_action_index(self):
+        """Creates two dictionaries to map actions to their indexes and action indexes to actions.
+        
+        Args:
+            None
+            
+        Returns:
+            action_index_dict
+            index_action_dict
+        """
         action_index_dict = {}
         index_action_dict = {}
         for k in range(len(self.actions)):
