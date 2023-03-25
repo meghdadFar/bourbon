@@ -1,11 +1,10 @@
-from rl_nlp import logger
 import torch
 from functools import reduce
 import itertools
 
 class QTable:
     """
-    Provides a number of analysis functionalities --such as class distribution, for labels.
+    Represents a Q-table.
 
     Attributes:
         state_space: A list of integers. Each index of the list represents one dimension of the state space and the value
@@ -21,7 +20,7 @@ class QTable:
         >>> qt = QTable(state_space=state_space, actions=actions)
     """
     def __init__(self, state_space, actions):
-        """Initialize a QTable object by defining attributes by creating a Qtable from states and actions.
+        """Initialize a QTable object based on `state_space` and `actions`.
 
        Args:
             state_space (list): A list of integers. Each index of the list represents one dimension of the state space and the value
@@ -41,7 +40,7 @@ class QTable:
         self.action_index_dict, _ = self._create_action_index()
     
     def _create_state_index(self):
-        """Creates two dictionaries to map states to an index, and state indexes to a states.
+        """Create two dictionaries to map each state to an index, and vice versa.
 
         Args:
             None
@@ -63,7 +62,7 @@ class QTable:
         return state_index_dict, index_state_dict
 
     def _create_action_index(self):
-        """Creates two dictionaries to map actions to their indexes and action indexes to actions.
+        """Create two dictionaries to map each action to an index, and vice versa.
         
         Args:
             None
@@ -77,11 +76,10 @@ class QTable:
         for k in range(len(self.actions)):
             action_index_dict[str(self.actions[k])] = k
             index_action_dict[k] = self.actions[k]
-
         return action_index_dict, index_action_dict
 
     def get_state_index(self, state):
-        """Converts state into index.
+        """Convert state into index.
 
         Args:
             state ([int]):
