@@ -1,3 +1,3 @@
-# kandula (work in progress)
+# Kandula (work in progress)
 
-`kandula` is package for generic Reinforcement Learning.
+Kandula is a Python package for Reinforcement Learning from Human Feedback (RLHF). Kandula is primarily used for fine tuning a Large Language Model with inputs from domain experts.
