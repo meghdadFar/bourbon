@@ -13,7 +13,6 @@ import torch
 import itertools
 
 
-
 def gen_rand_nums():
     num_1 = randint(1,5)
     num_2 = randint(1,5)
@@ -31,7 +30,6 @@ class MyRlStep(RLStep):
         prod = reduce((lambda x,y: x*y), state)
         reward = 1/(abs(prod-action)+1)
         return reward
-
 
 
 def evaluate_my_rl_agent(state_space, actions, q_table):
@@ -53,7 +51,6 @@ def evaluate_my_rl_agent(state_space, actions, q_table):
     return error_perc
 
 
-
 if __name__ == "__main__":
 
     logging.info('Creating required objects')
@@ -69,7 +66,6 @@ if __name__ == "__main__":
     win = viz.line(
         X=np.array([0]), Y=np.array([0]))
 
-    
     logging.info('Training the model...')
     num_epochs = 70000
     for e in range(1, num_epochs):
@@ -84,8 +80,6 @@ if __name__ == "__main__":
                 update='append')
             time.sleep(0.1)
 
-
-
     while True:
         num = input ("Enter two numbers separated by a comma, to see their product: ")
         try:
@@ -93,7 +87,7 @@ if __name__ == "__main__":
         except:
             logging.error('Input format seems to be wrong, please try again.')
             continue
-            
+
         a = int(a)
         b = int(b)
 
