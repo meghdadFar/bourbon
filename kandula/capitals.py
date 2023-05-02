@@ -4,7 +4,7 @@ from kandula import logging
 from kandula.steps import RLStep
 from kandula.qtable import QTable
 from kandula.Q_learning import QL
-from typing import List
+from typing import List, Dict
 
 from random import randint
 from functools import reduce
@@ -20,6 +20,19 @@ with open("resources/country_capital.json", "r") as fc:
     capitals: List = json.load(fc)
 
 
+def index_state_actions(states_to_best_actions: Dict[str, str]):
+    i = 0
+    state_index = []
+    action_index = []
+    for item in states_to_best_actions:
+        state_index.append({item["country"] : i+1})
+        action_index.append({item["capital"] : i+1})
+    return state_index, action_index
+
+
+state_index, action_index = index_state_actions(capitals)
+
+
 def gen_rand_capital():
     random_item = random.choice(capitals)
     return random_item["country"], random_item["capital"]
@@ -33,6 +46,7 @@ class MyRlStep(RLStep):
         return state
     
     def get_reward(self, state, action):
+
         prod = reduce((lambda x,y: x*y), state)
         reward = 1/(abs(prod-action)+1)
         return reward
