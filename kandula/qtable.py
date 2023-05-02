@@ -25,14 +25,14 @@ class QTable:
        Args:
             state_space (list): A list of integers. Each index of the list represents one dimension of the state space and the value
                 at that index represents the number of possible values for that dimension. For instance, if the first index
-                represents a 5 class concept, the value at this index should be 5. 
+                represents a 5 class concept, the value at this index should be 5.
             actions (list): A list of possible actions that the RL agent is allowed to take. 
 
         Returns:
             None
         """
         self.state_space = state_space
-        self.actions = actions
+        self.  = actions
         num_states = reduce(lambda x, y: x*y, state_space)
         num_actions = len(actions)
         self.q_table = torch.zeros([num_states, num_actions])
