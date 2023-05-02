@@ -18,37 +18,40 @@ import random
 
 with open("resources/country_capital.json", "r") as fc:
     capitals: List = json.load(fc)
+capitals_dict = {}
+country_index = {}
+i=0
+for jl in capitals.items():
+    capitals_dict[jl["country"]] = ["capital"]
+    country_index[jl["country"]] = i
+    i+=1
 
 
-def index_state_actions(states_to_best_actions: Dict[str, str]):
-    i = 0
-    state_index = []
-    action_index = []
-    for item in states_to_best_actions:
-        state_index.append({item["country"] : i+1})
-        action_index.append({item["capital"] : i+1})
-    return state_index, action_index
+
+# def index_state_actions(states_to_best_actions: Dict[str, str]):
+#     i = 0
+#     action_index = []
+#     for item in states_to_best_actions:
+#         state_index.append({item["country"] : i+1})
+#         action_index.append({item["capital"] : i+1})
+#     return state_index, action_index
 
 
-state_index, action_index = index_state_actions(capitals)
+# state_index, action_index = index_state_actions(capitals)
 
-
-def gen_rand_capital():
-    random_item = random.choice(capitals)
-    return random_item["country"], random_item["capital"]
-
+def gen_rand_country():
+    country, _ = random.choice(list(capitals_dict.items()))
+    return country
 
 class MyRlStep(RLStep):
 
     def get_state(self):
-        a, b = gen_rand_capital()
-        state = [a, b]
+        country = gen_rand_country()
+        state = [country_index[country]]
         return state
     
     def get_reward(self, state, action):
-
-        prod = reduce((lambda x,y: x*y), state)
-        reward = 1/(abs(prod-action)+1)
+        reward = [1 if capitals_dict[state] == action else 0]
         return reward
 
 
@@ -73,15 +76,14 @@ def evaluate_my_rl_agent(state_space, actions, q_table):
 
 if __name__ == "__main__":
 
-    print(gen_rand_capital())
 
-    # logging.info('Creating required objects')
-    # mrls = MyRlStep()
-    # state_space = [5, 5]
-    # actions = [i for i in range(1,26)]
+    logging.info('Creating required objects')
+    mrls = MyRlStep()
+    state_space = [248]
+    actions = [v for _, v in capitals.items()]
 
-    # qt = QTable(state_space=state_space, actions=actions)
-    # ql = QL(qtable=qt, rl_step=mrls)
+    qt = QTable(state_space=state_space, actions=actions)
+    ql = QL(qtable=qt, rl_step=mrls)
 
     # logging.info('Initializing plot...')
     # viz = visdom.Visdom()

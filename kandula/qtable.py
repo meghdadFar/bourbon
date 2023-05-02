@@ -32,7 +32,7 @@ class QTable:
             None
         """
         self.state_space = state_space
-        self.  = actions
+        self.actions = actions
         num_states = reduce(lambda x, y: x*y, state_space)
         num_actions = len(actions)
         self.q_table = torch.zeros([num_states, num_actions])
