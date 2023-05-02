@@ -16,8 +16,7 @@ import itertools
 
 def gen_rand_capital():
     country, capital = 
-    num_2 = randint(1,5)
-    return num_1, num_2
+    return country, capital
 
 
 class MyRlStep(RLStep):
