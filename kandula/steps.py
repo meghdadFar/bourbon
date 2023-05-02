@@ -4,8 +4,7 @@ class RLStep(ABC):
 
     @abstractmethod
     def get_state(self):
-        """Makes an API call to get the new state and the reward resulted from action.
-            
+        """Get the new state.
 
         Returns:
             new_state (list)
@@ -15,9 +14,10 @@ class RLStep(ABC):
     
     @abstractmethod
     def get_reward(self, state, action):
-        """Makes an API call to get the reward resulted from action.
+        """Get the reward resulted from taking `action` in `state`.
         
         Args:
+            state
             action
 
         Returns:
