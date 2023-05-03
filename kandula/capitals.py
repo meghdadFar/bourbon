@@ -23,7 +23,7 @@ country_index = {}
 index_country = {}
 i=1
 for jl in capitals:
-    capitals_dict[jl["country"]] = ["capital"]
+    capitals_dict[jl["country"]] = jl["capital"]
     country_index[jl["country"]] = i
     index_country[i] = jl["country"]
     i+=1
@@ -66,13 +66,15 @@ def evaluate_my_rl_agent(state_space, actions, q_table):
     
     error = 0
 
-    for s in all_possible_states:    
-        actual_product = s[0]*s[1]
+    for s in all_possible_states:
+        country = index_country[s[0]]
+        actual_capital = capitals_dict[country]
         state_index = q_table.get_state_index(s)
         action_index = torch.argmax(q_table.q_table[state_index]).item()
-        rl_product = q_table.actions[action_index]
-        if actual_product != rl_product:
+        rl_prediction = q_table.actions[action_index]
+        if actual_capital != rl_prediction:
             error += 1
+        # print(f"country: {country} - actual: {actual_capital} - predicted: {rl_prediction}")
 
     error_perc = error*100/len(all_possible_states)
     return error_perc
@@ -95,7 +97,7 @@ if __name__ == "__main__":
         X=np.array([0]), Y=np.array([0]))
 
     logging.info('Training the model...')
-    num_epochs = 70000
+    num_epochs = 3000000
     for e in range(1, num_epochs):
         q_table = ql.train()
         if e % 1000 == 0:
@@ -109,7 +111,7 @@ if __name__ == "__main__":
             time.sleep(0.1)
 
     while True:
-        num = input ("Enter two numbers separated by a comma, to see their product: ")
+        num = input ("Enter a country whose capital you want to know:")
         try:
             a, b = num.split(',')
         except:
