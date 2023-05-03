@@ -29,6 +29,7 @@ class MyRlStep(RLStep):
     def get_reward(self, state, action):
         prod = reduce((lambda x,y: x*y), state)
         reward = 1/(abs(prod-action)+1)
+        print(f"p: {prod} - a: {action} - r: {reward}")
         return reward
 
 
@@ -46,7 +47,6 @@ def evaluate_my_rl_agent(state_space, actions, q_table):
         rl_product = q_table.actions[action_index]
         if actual_product != rl_product:
             error += 1
-
     error_perc = error*100/len(all_possible_states)
     return error_perc
 

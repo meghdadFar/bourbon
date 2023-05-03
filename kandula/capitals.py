@@ -27,8 +27,8 @@ for jl in capitals:
     country_index[jl["country"]] = i
     index_country[i] = jl["country"]
     i+=1
-
-
+    # if i == 11:
+    #     break
 
 # def index_state_actions(states_to_best_actions: Dict[str, str]):
 #     i = 0
@@ -53,7 +53,7 @@ class MyRlStep(RLStep):
         return state
     
     def get_reward(self, state, action):
-        # print(state)
+        print(f"a: {action}")
         s = reduce((lambda x: x), state)
         reward = 1 if index_country[s] == action else 0
         return reward
@@ -74,9 +74,9 @@ def evaluate_my_rl_agent(state_space, actions, q_table):
         rl_prediction = q_table.actions[action_index]
         if actual_capital != rl_prediction:
             error += 1
-        # print(f"country: {country} - actual: {actual_capital} - predicted: {rl_prediction}")
 
     error_perc = error*100/len(all_possible_states)
+    # print(f"country: {country} - actual: {actual_capital} - predicted: {rl_prediction} - error: {error} - error%: {error_perc}")
     return error_perc
 
 
