@@ -11,8 +11,6 @@ class QTable:
             at that index represents the number of possible values for that dimension.
         actions: A list of possible actions that the RL agent is allowed to take. 
         q_table: Qtable.
-        state_index: 
-        action_index:
 
     Example:
         >>> state_space=[5, 5]
