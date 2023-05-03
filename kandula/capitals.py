@@ -53,9 +53,8 @@ class MyRlStep(RLStep):
         return state
     
     def get_reward(self, state, action):
-        print(f"a: {action}")
         s = reduce((lambda x: x), state)
-        reward = 1 if index_country[s] == action else 0
+        reward = 1 if capitals_dict[index_country[s]] == action else 0
         return reward
 
 
@@ -76,7 +75,7 @@ def evaluate_my_rl_agent(state_space, actions, q_table):
             error += 1
 
     error_perc = error*100/len(all_possible_states)
-    # print(f"country: {country} - actual: {actual_capital} - predicted: {rl_prediction} - error: {error} - error%: {error_perc}")
+    print(f"country: {country} - actual: {actual_capital} - predicted: {rl_prediction} - error: {error} - error%: {error_perc}")
     return error_perc
 
 
@@ -108,7 +107,7 @@ if __name__ == "__main__":
                 win=win,
                 name='Error',
                 update='append')
-            time.sleep(0.1)
+            # time.sleep(0.1)
 
     while True:
         num = input ("Enter a country whose capital you want to know:")
