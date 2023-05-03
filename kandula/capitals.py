@@ -27,19 +27,7 @@ for jl in capitals:
     country_index[jl["country"]] = i
     index_country[i] = jl["country"]
     i+=1
-    # if i == 11:
-    #     break
 
-# def index_state_actions(states_to_best_actions: Dict[str, str]):
-#     i = 0
-#     action_index = []
-#     for item in states_to_best_actions:
-#         state_index.append({item["country"] : i+1})
-#         action_index.append({item["capital"] : i+1})
-#     return state_index, action_index
-
-
-# state_index, action_index = index_state_actions(capitals)
 
 def gen_rand_country():
     country, _ = random.choice(list(capitals_dict.items()))
@@ -107,7 +95,6 @@ if __name__ == "__main__":
                 win=win,
                 name='Error',
                 update='append')
-            # time.sleep(0.1)
 
     while True:
         num = input ("Enter a country whose capital you want to know:")
