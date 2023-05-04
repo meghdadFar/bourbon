@@ -4,18 +4,13 @@ from kandula import logging
 from kandula.steps import RLStep
 from kandula.qtable import QTable
 from kandula.Q_learning import QL
-from typing import List, Dict
+from typing import List
 
-from random import randint
 from functools import reduce
-import visdom
-import numpy as np
 import torch
-import itertools
 import json
 import random
 from nltk import word_tokenize
-
 
 
 with open("resources/country_capital.json", "r") as fc:
@@ -61,18 +56,18 @@ def get_correct_action_for_capitals(state_ind: int):
     return capitals_dict[index_country[state_ind]]
 
 
-def evaluate_my_rl_agent(q_table, get_correct_action):
-    elements = [[i for i in range(1, l+1)] for l in q_table.state_space]
-    all_possible_states = list(itertools.product(*elements))
-    error = 0
-    for s in all_possible_states:
-        state_index = q_table.get_state_index(s)
-        action_index = torch.argmax(q_table.q_table[state_index]).item()
-        rl_predicted_action = q_table.actions[action_index]
-        if get_correct_action(s[0]) != rl_predicted_action:
-            error += 1
-    percentage_error = error*100/len(all_possible_states)
-    return percentage_error
+# def evaluate_my_rl_agent(q_table, get_correct_action):
+#     elements = [[i for i in range(1, l+1)] for l in q_table.state_space]
+#     all_possible_states = list(itertools.product(*elements))
+#     error = 0
+#     for s in all_possible_states:
+#         state_index = q_table.get_state_index(s)
+#         action_index = torch.argmax(q_table.q_table[state_index]).item()
+#         rl_predicted_action = q_table.actions[action_index]
+#         if get_correct_action(s[0]) != rl_predicted_action:
+#             error += 1
+#     percentage_error = error*100/len(all_possible_states)
+#     return percentage_error
 
 
 if __name__ == "__main__":
@@ -84,23 +79,24 @@ if __name__ == "__main__":
     qt = QTable(state_space=state_space, actions=actions)
     ql = QL(qtable=qt, rl_step=mrls)
 
-    logging.info('Initializing plot...')
-    viz = visdom.Visdom()
-    win = viz.line(
-        X=np.array([0]), Y=np.array([0]))
+    ql.train(get_correct_action_for_capitals)
 
-    logging.info('Training the model...')
-    num_epochs = 100000
-    for e in range(1, num_epochs):
-        q_table = ql.train()
-        if e % 1000 == 0:
-            eval_results = evaluate_my_rl_agent(qt, get_correct_action_for_capitals)
-            viz.line(
-                X=np.array([e]),
-                Y=np.array([eval_results]),
-                win=win,
-                name='Error',
-                update='append')
+    # logging.info('Initializing plot...')
+    # viz = visdom.Visdom()
+    # win = viz.line(
+    #     X=np.array([0]), Y=np.array([0]))
+    # logging.info('Training the model...')
+    # num_epochs = 100000
+    # for e in range(1, num_epochs):
+    #     q_table = ql.train()
+    #     if e % 1000 == 0:
+    #         eval_results = evaluate_my_rl_agent(qt, get_correct_action_for_capitals)
+    #         viz.line(
+    #             X=np.array([e]),
+    #             Y=np.array([eval_results]),
+    #             win=win,
+    #             name='Error',
+    #             update='append')
 
     while True:
         country = ""
@@ -114,9 +110,9 @@ if __name__ == "__main__":
             logging.error(E)
             continue
         try:
-            state_index = q_table.get_state_index([country_index[country]])
-            action_index = torch.argmax(q_table.q_table[state_index]).item()
-            res = q_table.actions[action_index]
+            state_index = ql.q_table.get_state_index([country_index[country]])
+            action_index = torch.argmax(ql.q_table.q_table[state_index]).item()
+            res = ql.q_table.actions[action_index]
             print(f'Capital of {country} is {res}')
         except:
             logging.error('Make sure the country name is written correctly, and is capitalized.')
