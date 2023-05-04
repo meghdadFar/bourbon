@@ -3,6 +3,10 @@ from kandula.qtable import QTable
 from kandula.steps import RLStep
 from random import randint
 from typing import Type
+from kandula import logging
+import visdom
+import numpy as np
+import itertools
 
 
 class Egreedy:
@@ -85,7 +89,7 @@ class QL:
             action = self._random_action(len(self.q_table.actions))  # Index of the best action
         return action
 
-    def train(self):
+    def update(self):
         """Trains the RL system by updating the Q-table via Q-learning rule.
         
         Args:
@@ -113,3 +117,37 @@ class QL:
         update_value = q_sa + self.alpha *(reward + self.gamma*q_spap - q_sa)
         self.q_table.q_table[state_index, action_index] = update_value
         return self.q_table
+    
+    
+    def evaluate_rl_agent(self, get_correct_action):
+        elements = [[i for i in range(1, l+1)] for l in self.q_table.state_space]
+        all_possible_states = list(itertools.product(*elements))
+        error = 0
+        for s in all_possible_states:
+            state_index = self.q_table.get_state_index(s)
+            action_index = torch.argmax(self.q_table.q_table[state_index]).item()
+            rl_predicted_action = self.q_table.actions[action_index]
+            if get_correct_action(s[0]) != rl_predicted_action:
+                error += 1
+        percentage_error = error*100/len(all_possible_states)
+        return percentage_error
+    
+    
+    def train(self, get_correct_action):
+        logging.info('Initializing plot...')
+        viz = visdom.Visdom()
+        win = viz.line(
+            X=np.array([0]), Y=np.array([0]))
+        logging.info('Training the model...')
+        num_epochs = 100000
+        for e in range(1, num_epochs):
+            self.update()
+            if e % 1000 == 0:
+                eval_results = self.evaluate_rl_agent(get_correct_action)
+                viz.line(
+                    X=np.array([e]),
+                    Y=np.array([eval_results]),
+                    win=win,
+                    name='Error',
+                    update='append')
+
