@@ -133,13 +133,12 @@ class QL:
         return percentage_error
     
     
-    def train(self, get_correct_action):
+    def train(self, num_epochs, get_correct_action):
         logging.info('Initializing plot...')
         viz = visdom.Visdom()
         win = viz.line(
             X=np.array([0]), Y=np.array([0]))
         logging.info('Training the model...')
-        num_epochs = 100000
         for e in range(1, num_epochs):
             self.update()
             if e % 1000 == 0:

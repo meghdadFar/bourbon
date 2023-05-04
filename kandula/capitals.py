@@ -24,8 +24,6 @@ for jl in capitals:
     country_index[jl["country"]] = i
     index_country[i] = jl["country"]
     i+=1
-    if i == 31:
-        break
 
 
 def gen_rand_country():
@@ -59,12 +57,12 @@ def get_correct_action_for_capitals(state_ind: int):
 if __name__ == "__main__":
     logging.info('Creating required objects')
     mrls = MyRlStep()
-    state_space = [30]
+    state_space = [248]
     actions = [v for _, v in capitals_dict.items()]
 
     qt = QTable(state_space=state_space, actions=actions)
     ql = QL(qtable=qt, rl_step=mrls)
-    ql.train(get_correct_action_for_capitals)
+    ql.train(3000000, get_correct_action_for_capitals)
 
     while True:
         country = ""
