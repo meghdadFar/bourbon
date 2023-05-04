@@ -86,7 +86,7 @@ if __name__ == "__main__":
         X=np.array([0]), Y=np.array([0]))
 
     logging.info('Training the model...')
-    num_epochs = 10000
+    num_epochs = 2000000
     for e in range(1, num_epochs):
         q_table = ql.train()
         if e % 1000 == 0:
