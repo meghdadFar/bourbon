@@ -33,7 +33,7 @@ class MyRlStep(RLStep):
         return reward
 
 
-def evaluate_my_rl_agent(state_space, actions, q_table):
+def evaluate_rl_agent(state_space, actions, q_table):
     # Create all combinations
     elements = [[i for i in range(1, l+1)] for l in state_space]
     all_possible_states = list(itertools.product(*elements))
@@ -71,7 +71,7 @@ if __name__ == "__main__":
     for e in range(1, num_epochs):
         q_table = ql.train()
         if e % 1000 == 0:
-            eval_results = evaluate_my_rl_agent(state_space, actions, q_table)
+            eval_results = evaluate_rl_agent(state_space, actions, q_table)
             viz.line(
                 X=np.array([e]),
                 Y=np.array([eval_results]),
