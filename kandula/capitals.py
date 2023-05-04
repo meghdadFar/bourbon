@@ -14,6 +14,8 @@ import torch
 import itertools
 import json
 import random
+from nltk import word_tokenize
+
 
 
 with open("resources/country_capital.json", "r") as fc:
@@ -63,7 +65,7 @@ def evaluate_my_rl_agent(state_space, actions, q_table):
             error += 1
 
     error_perc = error*100/len(all_possible_states)
-    print(f"country: {country} - actual: {actual_capital} - predicted: {rl_prediction} - error: {error} - error%: {error_perc}")
+    # print(f"country: {country} - actual: {actual_capital} - predicted: {rl_prediction} - error: {error} - error%: {error_perc}")
     return error_perc
 
 
@@ -84,7 +86,7 @@ if __name__ == "__main__":
         X=np.array([0]), Y=np.array([0]))
 
     logging.info('Training the model...')
-    num_epochs = 3000000
+    num_epochs = 10000
     for e in range(1, num_epochs):
         q_table = ql.train()
         if e % 1000 == 0:
@@ -97,20 +99,23 @@ if __name__ == "__main__":
                 update='append')
 
     while True:
-        num = input ("Enter a country whose capital you want to know:")
+        country = ""
+        query = input ("Enter your quey: ")
         try:
-            a, b = num.split(',')
-        except:
-            logging.error('Input format seems to be wrong, please try again.')
+            tokens = word_tokenize(query)
+            for t in tokens:
+                if t in capitals_dict:
+                    country = t
+        except Exception as E:
+            logging.error(E)
             continue
-
-        a = int(a)
-        b = int(b)
-
-        state_index = q_table.get_state_index([a,b])
-        action_index = torch.argmax(q_table.q_table[state_index]).item()
-        res = q_table.actions[action_index]
-        print(f'{a} x {b} = {res}')
+        try:
+            state_index = q_table.get_state_index([country_index[country]])
+            action_index = torch.argmax(q_table.q_table[state_index]).item()
+            res = q_table.actions[action_index]
+            print(f'Capital of {country} is {res}')
+        except:
+            logging.error('Make sure the country name is written correctly, and is capitalized.')
     
 
     
