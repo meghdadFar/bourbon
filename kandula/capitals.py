@@ -50,7 +50,7 @@ class MyRlStep(RLStep):
         return reward
 
 # TODO make this state instead of state index
-def get_correct_action(state_ind: int):
+def get_correct_action_for_capitals(state_ind: int):
     """
     Args:
         state: Index of the state
@@ -61,7 +61,7 @@ def get_correct_action(state_ind: int):
     return capitals_dict[index_country[state_ind]]
 
 
-def evaluate_my_rl_agent(q_table):
+def evaluate_my_rl_agent(q_table, get_correct_action):
     elements = [[i for i in range(1, l+1)] for l in q_table.state_space]
     all_possible_states = list(itertools.product(*elements))
     error = 0
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     for e in range(1, num_epochs):
         q_table = ql.train()
         if e % 1000 == 0:
-            eval_results = evaluate_my_rl_agent(q_table)
+            eval_results = evaluate_my_rl_agent(qt, get_correct_action_for_capitals)
             viz.line(
                 X=np.array([e]),
                 Y=np.array([eval_results]),
