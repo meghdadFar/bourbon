@@ -33,24 +33,6 @@ class MyRlStep(RLStep):
         return reward
 
 
-def evaluate_rl_agent(state_space, actions, q_table):
-    # Create all combinations
-    elements = [[i for i in range(1, l+1)] for l in state_space]
-    all_possible_states = list(itertools.product(*elements))
-    
-    error = 0
-
-    for s in all_possible_states:    
-        actual_product = s[0]*s[1]
-        state_index = q_table.get_state_index(s)
-        action_index = torch.argmax(q_table.q_table[state_index]).item()
-        rl_product = q_table.actions[action_index]
-        if actual_product != rl_product:
-            error += 1
-    error_perc = error*100/len(all_possible_states)
-    return error_perc
-
-
 if __name__ == "__main__":
 
     logging.info('Creating required objects')
