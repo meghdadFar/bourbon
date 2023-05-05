@@ -42,16 +42,15 @@ class MyRlStep(RLStep):
         reward = 1 if capitals_dict[index_country[s]] == action else 0
         return reward
 
-# TODO make this state instead of state index
-def get_correct_action_for_capitals(state_ind: int):
+def get_correct_action_for_capitals(state: List):
     """
     Args:
-        state: Index of the state
+        state: State
     
     Returns:
         The best or correct action to take in `state_ind`
     """
-    return capitals_dict[index_country[state_ind]]
+    return capitals_dict[index_country[state[0]]]
 
 
 if __name__ == "__main__":
