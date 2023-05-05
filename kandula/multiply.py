@@ -40,7 +40,6 @@ def get_correct_action_for_multiply(state: list):
     Returns:
         The best or correct action to take in `state_ind`
     """
-    print(f"State: {state}")
     return state[0]*state[1]
 
 
@@ -69,10 +68,11 @@ if __name__ == "__main__":
         a = int(a)
         b = int(b)
 
-        state_index = q_table.get_state_index([a,b])
-        action_index = torch.argmax(q_table.q_table[state_index]).item()
-        res = q_table.actions[action_index]
+        state_index = ql.q_table.get_state_index([a,b])
+        action_index = torch.argmax(ql.q_table.q_table[state_index]).item()
+        res = ql.q_table.actions[action_index]
         print(f'{a} x {b} = {res}')
+
     
 
     
