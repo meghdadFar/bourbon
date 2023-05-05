@@ -29,8 +29,19 @@ class MyRlStep(RLStep):
     def get_reward(self, state, action):
         prod = reduce((lambda x,y: x*y), state)
         reward = 1/(abs(prod-action)+1)
-        print(f"p: {prod} - a: {action} - r: {reward}")
         return reward
+
+
+def get_correct_action_for_multiply(state: list):
+    """
+    Args:
+        state: Index of the state
+    
+    Returns:
+        The best or correct action to take in `state_ind`
+    """
+    print(f"State: {state}")
+    return state[0]*state[1]
 
 
 if __name__ == "__main__":
@@ -45,7 +56,7 @@ if __name__ == "__main__":
 
     qt = QTable(state_space=state_space, actions=actions)
     ql = QL(qtable=qt, rl_step=mrls)
-    ql.train(70000, get_correct_action_for_capitals)
+    ql.train(70000, get_correct_action_for_multiply)
 
     while True:
         num = input ("Enter two numbers separated by a comma, to see their product: ")
