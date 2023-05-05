@@ -127,7 +127,7 @@ class QL:
             state_index = self.q_table.get_state_index(s)
             action_index = torch.argmax(self.q_table.q_table[state_index]).item()
             rl_predicted_action = self.q_table.actions[action_index]
-            if get_correct_action(s[0]) != rl_predicted_action:
+            if get_correct_action(s) != rl_predicted_action:
                 error += 1
         percentage_error = error*100/len(all_possible_states)
         return percentage_error
