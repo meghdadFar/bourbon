@@ -61,24 +61,9 @@ if __name__ == "__main__":
     qt = QTable(state_space=state_space, actions=actions)
     ql = QL(qtable=qt, rl_step=mrls)
 
-    logging.info('Initializing plot...')
-    viz = visdom.Visdom()
-    win = viz.line(
-        X=np.array([0]), Y=np.array([0]))
-
-    logging.info('Training the model...')
-    num_epochs = 70000
-    for e in range(1, num_epochs):
-        q_table = ql.train()
-        if e % 1000 == 0:
-            eval_results = evaluate_rl_agent(state_space, actions, q_table)
-            viz.line(
-                X=np.array([e]),
-                Y=np.array([eval_results]),
-                win=win,
-                name='Error',
-                update='append')
-            time.sleep(0.1)
+    qt = QTable(state_space=state_space, actions=actions)
+    ql = QL(qtable=qt, rl_step=mrls)
+    ql.train(70000, get_correct_action_for_capitals)
 
     while True:
         num = input ("Enter two numbers separated by a comma, to see their product: ")
