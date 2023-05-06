@@ -30,7 +30,7 @@ def gen_rand_country():
     country, _ = random.choice(list(capitals_dict.items()))
     return country
 
-class MyRlStep(RLStep):
+class CapitalsRLStep(RLStep):
 
     def get_state(self):
         country = gen_rand_country()
@@ -55,7 +55,7 @@ def get_correct_action_for_capitals(state: List):
 
 if __name__ == "__main__":
     logging.info('Creating required objects')
-    mrls = MyRlStep()
+    mrls = CapitalsRLStep()
     state_space = [248]
     actions = [v for _, v in capitals_dict.items()]
 
