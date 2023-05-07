@@ -3,7 +3,7 @@ import time
 from kandula import logging
 from kandula.steps import RLStep
 from kandula.qtable import QTable
-from kandula.Q_learning import QL
+from kandula.q_learning import QL
 from typing import List
 
 from functools import reduce
