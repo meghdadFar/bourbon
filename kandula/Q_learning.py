@@ -134,12 +134,14 @@ class QL:
         percentage_error = error*100/len(all_possible_states)
         return percentage_error
 
-    def train(self, num_epochs, get_correct_action):
+    def train(self, num_epochs, get_correct_action, verbose=False):
         logging.info('Training the RL agent...')
         for e in range(1, num_epochs):
             self.update()
             if e % 1000 == 0:
                 eval_results = self.evaluate_rl_agent(get_correct_action)
                 writer.add_scalar("Error", eval_results, e)
+                if verbose:
+                    logging.info(f'Epoch: {e} - Error: {eval_results:.2f}%')
                 writer.flush()
 
