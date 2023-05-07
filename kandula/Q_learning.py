@@ -4,8 +4,6 @@ from kandula.steps import RLStep
 from random import randint
 from typing import Type
 from kandula import logging
-import visdom
-import numpy as np
 import itertools
 from torch.utils.tensorboard import SummaryWriter
 
