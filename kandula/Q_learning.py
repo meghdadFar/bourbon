@@ -7,6 +7,7 @@ from kandula import logging
 import itertools
 from torch.utils.tensorboard import SummaryWriter
 
+
 writer = SummaryWriter()
 
 
