@@ -81,7 +81,3 @@ if __name__ == "__main__":
             print(f'Capital of {country} is {res}')
         except:
             logging.error('Make sure the country name is written correctly, and is capitalized.')
-    
-
-    
-        
