@@ -135,20 +135,11 @@ class QL:
         return percentage_error
 
     def train(self, num_epochs, get_correct_action):
-        logging.info('Training the model...')
-        # viz = visdom.Visdom()
-        # win = viz.line(
-        #     X=np.array([0]), Y=np.array([0]))
+        logging.info('Training the RL agent...')
         for e in range(1, num_epochs):
             self.update()
             if e % 1000 == 0:
                 eval_results = self.evaluate_rl_agent(get_correct_action)
                 writer.add_scalar("Error", eval_results, e)
                 writer.flush()
-                # viz.line(
-                #     X=np.array([e]),
-                #     Y=np.array([eval_results]),
-                #     win=win,
-                #     na me='Error',
-                #     update='append')
 
