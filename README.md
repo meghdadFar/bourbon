@@ -8,3 +8,6 @@ Kandula is a Python package for general Reinforcement Learning. You can use Kand
 pip install kandula
 ```
 
+## TODO
+
+- Check notebooks. Description of RL step and ignoring the Markov assumption previous state and actions. 
