@@ -8,9 +8,6 @@ import itertools
 from torch.utils.tensorboard import SummaryWriter
 
 
-writer = SummaryWriter()
-
-
 class Egreedy:
     """Implements parameters of E-greedy algorithm."""
     def __init__(self,
@@ -133,7 +130,8 @@ class QL:
         percentage_error = error*100/len(all_possible_states)
         return percentage_error
 
-    def train(self, num_epochs, get_correct_action, verbose=False):
+    def train(self, num_epochs, get_correct_action, verbose=False, log_dir='runs'):
+        writer = SummaryWriter(log_dir=log_dir)
         logging.info('Training the RL agent...')
         for e in range(1, num_epochs):
             self.update()
