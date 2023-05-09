@@ -131,23 +131,15 @@ class QL:
         percentage_error = error*100/len(all_possible_states)
         return percentage_error
 
-    def train(self, num_epochs, get_correct_action, verbose=False, log_dir='runs'):
+    def train(self, num_epochs, get_correct_action, log_dir='runs'):
         writer = SummaryWriter(log_dir=log_dir)
         logging.info('Training the RL agent...')
 
         pbar = tqdm(range(1, num_epochs))
-        # for e in pbar:
-        #     if ichar in ['a','e','i','o','u']:
-        #         num_vowels += 1
-        #     pbar.set_postfix({'num_vowels': num_vowels})
-        # for e in tqdm(range(1, num_epochs)):
         for e in pbar:
             self.update()
             if e % 1000 == 0:
                 eval_results = self.evaluate_rl_agent(get_correct_action)
                 writer.add_scalar("Error", eval_results, e)
                 pbar.set_postfix({'Error (%)': eval_results})
-                # if verbose:
-                # logging.info(f'Epoch: {e} - Error: {eval_results:.2f}%')
                 writer.flush()
-
