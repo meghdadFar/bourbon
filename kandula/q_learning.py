@@ -131,8 +131,8 @@ class QL:
         percentage_error = error*100/len(all_possible_states)
         return percentage_error
 
-    def train(self, num_epochs, get_correct_action, log_dir='runs'):
-        writer = SummaryWriter(log_dir=log_dir)
+    def train(self, num_epochs, get_correct_action, **kwargs):
+        writer = SummaryWriter(**kwargs)
         logging.info('Training the RL agent...')
 
         pbar = tqdm(range(1, num_epochs))
