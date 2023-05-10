@@ -1,14 +1,15 @@
 [tool.poetry]
 name = "kandula"
-version = "0.0.1"
+version = "0.0.2"
 description = "Kandula is a Python package for general Reinforcement Learning."
 authors = ["meghdadFar <meghdad.farahmand@gmail.com>"]
-readme = "README.md"
+readme = "README.rst"
+include = ["kandula"]
 license = "MIT"
 keywords = ["Reinforcement Learning"]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.12"
+python = ">=3.11,<3.12"
 torch = "2.0.0"
 nltk = "3.8.1"
 tensorboard = "2.13.0"
