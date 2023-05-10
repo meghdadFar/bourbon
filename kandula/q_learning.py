@@ -30,7 +30,6 @@ class Egreedy:
         self.egreedy_decay = egreedy_decay
         self.egreedy_last = egreedy_last
 
-
 class QL:
     """Implements Q-learning."""
     def __init__(self, qtable: Type[QTable],
