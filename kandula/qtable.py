@@ -1,6 +1,8 @@
-import torch
-from functools import reduce
 import itertools
+from functools import reduce
+
+import torch
+
 
 class QTable:
     """
@@ -9,7 +11,7 @@ class QTable:
     Attributes:
         state_space: A list of integers. Each index of the list represents one dimension of the state space and the value
             at that index represents the number of possible values for that dimension.
-        actions: A list of possible actions that the RL agent is allowed to take. 
+        actions: A list of possible actions that the RL agent is allowed to take.
         q_table: Qtable.
 
     Example:
@@ -17,26 +19,27 @@ class QTable:
         >>> actions = [i for i in range(1,26)]
         >>> qt = QTable(state_space=state_space, actions=actions)
     """
+
     def __init__(self, state_space, actions):
         """Initialize a QTable object based on `state_space` and `actions`.
 
-       Args:
-            state_space (list): A list of integers. Each index of the list represents one dimension of the state space and the value
-                at that index represents the number of possible values for that dimension. For instance, if the first index
-                represents a 5 class concept, the value at this index should be 5.
-            actions (list): A list of possible actions that the RL agent is allowed to take. 
+        Args:
+             state_space (list): A list of integers. Each index of the list represents one dimension of the state space and the value
+                 at that index represents the number of possible values for that dimension. For instance, if the first index
+                 represents a 5 class concept, the value at this index should be 5.
+             actions (list): A list of possible actions that the RL agent is allowed to take.
 
-        Returns:
-            None
+         Returns:
+             None
         """
         self.state_space = state_space
         self.actions = actions
-        num_states = reduce(lambda x, y: x*y, state_space)
+        num_states = reduce(lambda x, y: x * y, state_space)
         num_actions = len(actions)
         self.q_table = torch.zeros([num_states, num_actions])
         self.state_index_dict, _ = self._create_state_index()
         self.action_index_dict, _ = self._create_action_index()
-    
+
     def _create_state_index(self):
         """Create two dictionaries to map each state to an index, and vice versa.
 
@@ -48,8 +51,13 @@ class QTable:
             index_state_dict
         """
         # Create all combinations
-        elements = [[i for i in range(1, l+1)] for l in self.state_space]
-        all_possible_states = list(itertools.product(*elements))  # for state_space [2, 3, 3]], `all_possible_states` looks like: [(1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 2, 1), (1, 2, 2), (1, 2, 3), (1, 3, 1), .., (5, 5, 5)]
+        elements = [
+            [i for i in range(1, state_elements + 1)]
+            for state_elements in self.state_space
+        ]
+        all_possible_states = list(
+            itertools.product(*elements)
+        )  # for state_space [2, 3, 3]], `all_possible_states` looks like: [(1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 2, 1), (1, 2, 2), (1, 2, 3), (1, 3, 1), .., (5, 5, 5)]
 
         state_index_dict = {}
         index_state_dict = {}
@@ -61,10 +69,10 @@ class QTable:
 
     def _create_action_index(self):
         """Create two dictionaries to map each action to an index, and vice versa.
-        
+
         Args:
             None
-            
+
         Returns:
             action_index_dict
             index_action_dict

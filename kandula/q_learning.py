@@ -1,26 +1,28 @@
-import torch
-from kandula.qtable import QTable
-from kandula.steps import RLStep
+import itertools
 from random import randint
 from typing import Type
-from kandula import logging
-import itertools
+
+import torch
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
+
+from kandula import logging
+from kandula.qtable import QTable
+from kandula.steps import RLStep
 
 
 class Egreedy:
     """Implements parameters of E-greedy algorithm."""
-    def __init__(self,
-                 egreedy_first: float,
-                 egreedy_decay: float,
-                 egreedy_last:float) -> None:
+
+    def __init__(
+        self, egreedy_first: float, egreedy_decay: float, egreedy_last: float
+    ) -> None:
         """
-        
+
         Args:
             egreedy_first:
             egreedy_decay:
-            egreedy_last: 
+            egreedy_last:
 
         Returns:
             None
@@ -30,15 +32,20 @@ class Egreedy:
         self.egreedy_decay = egreedy_decay
         self.egreedy_last = egreedy_last
 
+
 class QL:
     """Implements Q-learning."""
-    def __init__(self, qtable: Type[QTable],
-                 rl_step: Type[RLStep],
-                 gamma: float=0.01,
-                 alpha: float=0.1,
-                 egreedy_first: float=0.5,
-                 egreedy_last: float=0.05,
-                 egreedy_decay: float=0.999):
+
+    def __init__(
+        self,
+        qtable: Type[QTable],
+        rl_step: Type[RLStep],
+        gamma: float = 0.01,
+        alpha: float = 0.1,
+        egreedy_first: float = 0.5,
+        egreedy_last: float = 0.05,
+        egreedy_decay: float = 0.999,
+    ):
         """
         Args:
             qtable:
@@ -51,7 +58,7 @@ class QL:
         Returns:
             None
         """
-        self.q_table= qtable
+        self.q_table = qtable
         self.rl_step = rl_step
         self.gamma = gamma
         self.alpha = alpha
@@ -59,18 +66,18 @@ class QL:
 
     def _random_action(self, n_actions: int):
         """Select a random action from among actions in the input
-        
+
         Args:
             n_actions (int): number of actions
-        
+
         Returns:
             action (int) index of an action
         """
-        return randint(0, n_actions-1)
+        return randint(0, n_actions - 1)
 
     def _select_train_action(self, state_index):
         """Helper function to selection a train action based on the adaptive epsilon greedy mechanism.
-        
+
         Args:
             state_index:
 
@@ -81,19 +88,24 @@ class QL:
         if torch.rand(1)[0] > self.egreedy.egreedy_first:
             # Select the action that maximizes future rewards with a prob of 1-egreedy
             # (instead of torch.max(Q, 1)[1][0], add small random values (in Q_plus) for cases when all columns are zero)
-            Q_plus = self.q_table.q_table[state_index] + torch.rand(1, len(self.q_table.actions))/1000
+            Q_plus = (
+                self.q_table.q_table[state_index]
+                + torch.rand(1, len(self.q_table.actions)) / 1000
+            )
             action = torch.max(Q_plus, 1)[1][0]  # Index of the best action
         else:
             # Select random action with a prob of egreedy
-            action = self._random_action(len(self.q_table.actions))  # Index of the best action
+            action = self._random_action(
+                len(self.q_table.actions)
+            )  # Index of the best action
         return action
 
     def update(self):
         """Trains the RL system by updating the Q-table via Q-learning rule.
-        
+
         Args:
             None
-        
+
         Returns:
             None
         """
@@ -113,12 +125,15 @@ class QL:
         # 3. Update Q-table via Q-learning rule: Q[s,a] + α(r + γmaxa' Q[s',a'] - Q[s,a])
         q_sa = self.q_table.q_table[state_index, action_index]
         q_spap = torch.max(self.q_table.q_table[new_state_index])
-        update_value = q_sa + self.alpha *(reward + self.gamma*q_spap - q_sa)
+        update_value = q_sa + self.alpha * (reward + self.gamma * q_spap - q_sa)
         self.q_table.q_table[state_index, action_index] = update_value
         return self.q_table
 
     def evaluate_rl_agent(self, get_correct_action):
-        elements = [[i for i in range(1, l+1)] for l in self.q_table.state_space]
+        elements = [
+            [i for i in range(1, state_elements + 1)]
+            for state_elements in self.q_table.state_space
+        ]
         all_possible_states = list(itertools.product(*elements))
         error = 0
         for s in all_possible_states:
@@ -127,12 +142,12 @@ class QL:
             rl_predicted_action = self.q_table.actions[action_index]
             if get_correct_action(s) != rl_predicted_action:
                 error += 1
-        percentage_error = error*100/len(all_possible_states)
+        percentage_error = error * 100 / len(all_possible_states)
         return percentage_error
 
     def train(self, num_epochs, get_correct_action, **kwargs):
         writer = SummaryWriter(**kwargs)
-        logging.info('Training the RL agent...')
+        logging.info("Training the RL agent...")
 
         pbar = tqdm(range(1, num_epochs))
         for e in pbar:
@@ -140,5 +155,5 @@ class QL:
             if e % 1000 == 0:
                 eval_results = self.evaluate_rl_agent(get_correct_action)
                 writer.add_scalar("Error", eval_results, e)
-                pbar.set_postfix({'Error (%)': eval_results})
+                pbar.set_postfix({"Error (%)": eval_results})
                 writer.flush()
