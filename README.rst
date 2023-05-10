@@ -10,5 +10,5 @@ Usage
 .. code:: bash
 
     pip install kandula
-    
-You can see two worked examples of training an RL agent to learn to multiply and to learn to predict country capitals in `these notebooks <./notebooks>`.
+
+You can see two worked examples of training an RL agent to learn to multiply and to learn to predict country capitals in `these notebooks <./notebooks>`__.
