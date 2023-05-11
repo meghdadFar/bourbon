@@ -1,6 +1,6 @@
 import itertools
 from random import randint
-from typing import Type
+from typing import Any, List, Type
 
 import torch
 from torch.utils.tensorboard import SummaryWriter
@@ -157,3 +157,17 @@ class QL:
                 writer.add_scalar("Error", eval_results, e)
                 pbar.set_postfix({"Error (%)": eval_results})
                 writer.flush()
+
+    def get_best_action(self, state: List[int]) -> Any:
+        """Returns the best action to be taken, when in `state`.
+
+        Args:
+            state:
+
+        Returns:
+            best_action
+        """
+        state_index = self.q_table.get_state_index(state)  # type: ignore
+        action_index = torch.argmax(self.q_table.q_table[state_index]).item()
+        best_action = self.q_table.actions[action_index]
+        return best_action
