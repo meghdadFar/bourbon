@@ -12,17 +12,16 @@ from kandula.steps import RLStep
 
 
 class Egreedy:
-    """Implements parameters of E-greedy algorithm."""
+    """Represents the parameters of Adaptive Epsilon Greedy (E-greedy) algorithm."""
 
     def __init__(
         self, egreedy_first: float, egreedy_decay: float, egreedy_last: float
     ) -> None:
-        """
-
+        """Initialize a new Egreedy object.
         Args:
-            egreedy_first:
-            egreedy_decay:
-            egreedy_last:
+            egreedy_first: Starting egreedy value.
+            egreedy_decay: Egreedy decay.
+            egreedy_last: Final egreedy value.
 
         Returns:
             None
@@ -46,9 +45,10 @@ class QL:
         egreedy_last: float = 0.05,
         egreedy_decay: float = 0.999,
     ):
-        """
+        """Initialize a new QL object.
+
         Args:
-            qtable:
+            qtable: Q-table.
             gamma:
             alpha:
             egreedy_first:
