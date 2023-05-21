@@ -11,12 +11,10 @@ Usage
     pip install kandula
 
 
-Steps
------
-In order to train an RL agent, the following steps should be taken. If the problem at hand can be defined as follows, then
+If the problem at hand can be satisfy main RL requirements, then
 it can be solved via RL and hence Kandula can be hte right solution. Otherwise, other approaches in ML might be more applicable.
 
-In brief, you should be able to define a state space, and a set of actions, and a reward function, for your problem, such that the actions change
+To solve your problem via RL, you should be able to define a **state space**, a set of **actions**, and a **reward function** such that the actions change
 the state of the problem and the reward function assigns a reward to each action.  
 
 
