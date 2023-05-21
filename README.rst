@@ -1,8 +1,7 @@
 Kandula
 #######
 
-Kandula is a Python package for general Reinforcement Learning (RL). You can use Kandula to apply RL to your owns problem. You can see the documentations
-`here <https://>`__.
+Kandula is a Python package for general Reinforcement Learning (RL). It can be used to train an RL agent for any problem that can be mapped to RL.
 
 Usage
 #####
