@@ -27,11 +27,10 @@ reward of 10. The agent has 4 actions available to it which are moving to the LE
 a reward function calculates the distance of the new state and the goal state and accordingly assigns a reward to the agent.
 
 .. image:: docs/figs/rlgrid.png
-   :align: center
 
 
 Actions
-~~~~~~~~~~~
+~~~~~~~
 
 Rewards
 ~~~~~~~
