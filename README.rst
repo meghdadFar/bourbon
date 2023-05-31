@@ -20,14 +20,14 @@ the state of the problem and the reward function assigns a reward to each action
 
 State Space
 ~~~~~~~~~~~~
-The first thing that we should consider is how do we want to map our problem to a state space. There are two ways to define the state for your problem.
-The first way is via a state vector of arbitrary size made of natural numbers {1, 2, 3, ...}. A classic example is a grid.
+The first thing that we should consider is mapping our problem to a state space. There are two ways to define the state for your problem.
+The first way is via a state vector of arbitrary size made of natural numbers {1, 2, 3, ...}. A classic example is the following grid. As you see, 
+our space is 2-dimensional, each state has an index and in total there are 9 states. The goal of the agent is to reach the GOAL state where it receives a
+reward of 10. The agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOWN, UP. Each time the agent takes one of these actions,
+a reward function calculates the distance of the new state and the goal state and accordingly assigns a reward to the agent.
 
-For instance, if your problem can be 
-Since a multiplication table presents a nice 2-dimensional space, it makes a good example for the reinforcement learning state space.
-We define the state space with a list, and each index of the list is a number that expresses how many possible values that dimension has.
-For instance, to represent a one-digit multiplication table in the range of 1-9, the state space can be defined as: `[9, 9]`. 
-Let's however, make this space smaller (5x5) for the sake of less computation and faster convergance.
+|rlgrid|
+
 
 Actions
 ~~~~~~~~~~~
@@ -39,3 +39,6 @@ Rewards
 Examples
 ~~~~~~~~
 You can see two worked examples of training an RL agent to learn to multiply and to learn to predict country capitals in `these notebooks <./notebooks>`__.
+
+
+.. |rlgrid| image:: docs/figs/rlgrid.png
