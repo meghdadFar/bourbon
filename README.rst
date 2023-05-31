@@ -26,7 +26,8 @@ our space is 2-dimensional, each state has an index and in total there are 9 sta
 reward of 10. The agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOWN, UP. Each time the agent takes one of these actions,
 a reward function calculates the distance of the new state and the goal state and accordingly assigns a reward to the agent.
 
-|rlgrid|
+.. image:: docs/figs/rlgrid.png
+   :align: center
 
 
 Actions
@@ -39,6 +40,3 @@ Rewards
 Examples
 ~~~~~~~~
 You can see two worked examples of training an RL agent to learn to multiply and to learn to predict country capitals in `these notebooks <./notebooks>`__.
-
-
-.. |rlgrid| image:: docs/figs/rlgrid.png
