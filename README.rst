@@ -23,17 +23,18 @@ State Space
 The first thing that we should consider is mapping our problem to a state space. There are two ways to define the state for your problem.
 The first way is via a state vector of arbitrary size made of natural numbers {1, 2, 3, ...}. A classic example is the following grid. As you see, 
 our space is 2-dimensional, each state has an index and in total there are 9 states. The goal of the agent is to reach the GOAL state where it receives a
-reward of 10. The agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOWN, UP. Each time the agent takes one of these actions,
-a reward function calculates the distance of the new state and the goal state and accordingly assigns a reward to the agent.
+reward of 10 by moving around on the grid.
 
 .. image:: docs/figs/rlgrid.png
 
 
 Actions
 ~~~~~~~
+As can be seen above, in this example, the agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOWN, UP.
 
 Rewards
 ~~~~~~~
+Each time the agent takes one of the above actions a reward function calculates the distance of the new state and the goal state and accordingly assigns a reward to the agent.
 
 
 Examples
