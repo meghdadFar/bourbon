@@ -30,7 +30,8 @@ reward of 10 by moving around on the grid.
 
 Actions
 ~~~~~~~
-As can be seen above, in this example, the agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOWN, UP.
+Actions can be defined as a set of operations that the RL agent can carry out. For instance, in the grid example above,
+the agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOWN, UP.
 
 Rewards
 ~~~~~~~
