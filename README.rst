@@ -35,7 +35,7 @@ the agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOW
 
 Rewards
 ~~~~~~~
-Each time the agent takes one of the above actions a reward function calculates the distance of the new state and the goal state and accordingly assigns a reward to the agent.
+When the agent performs action `a`` in state `s` it receives a reward from a function called `Q(s,a)` which calculates the **discounted future reward**.
 
 
 Examples
