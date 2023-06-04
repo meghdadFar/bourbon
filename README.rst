@@ -35,7 +35,13 @@ the agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOW
 
 Rewards
 ~~~~~~~
-When the agent performs action `a`` in state `s` it receives a reward from a function called `Q(s,a)` which calculates the **discounted future reward**.
+When the agent performs action `a`` in state `s` it receives a reward from a reward function. You should be able to define
+your own reward function, before you can apply reinforcement learning to your problem. In the grid example:
+
+
+Discounted Future Rewards
+-------------------------
+Q-function and is defined as `Q(s,a)` and calculates the **discounted future reward**.
 
 
 Examples
