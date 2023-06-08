@@ -1,10 +1,11 @@
 Kandula
 #######
 
+.. image:: https://img.shields.io/pypi/v/kandula
+   :alt: PyPI
 
-![PyPI](https://img.shields.io/pypi/v/kandula)
-
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/kandula)
+.. image:: https://img.shields.io/pypi/pyversions/kandula
+   :alt: PyPI - Python Version
 
 Kandula is a Python package for general Reinforcement Learning (RL). It can be used to train an RL agent for any problem that can be mapped to RL.
 
