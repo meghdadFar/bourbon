@@ -49,8 +49,13 @@ class QL:
 
         Args:
             qtable: Q-table.
-            gamma:
-            alpha:
+            gamma: Discount factor. A value between 0 and 1 that determines the relative importance of immediate and
+              future rewards. A higher discount factor places more emphasis on future rewards, while a lower discount
+              factor focuses more on immediate rewards. Default = 0.01.
+            alpha: Learning rate. `alpha` determines how much weight is given to the new information relative to the
+              existing estimate of the Q-value. A value of 0 for alpha means the agent completely ignores the new
+              information, while a value of 1 means the agent completely replaces the old estimate with the new information.
+              Default = 0.1.
             egreedy_first:
             egreedy_last:
             egreedy_decay:
