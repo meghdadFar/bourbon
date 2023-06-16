@@ -76,7 +76,7 @@ class QL:
         return randint(0, n_actions - 1)
 
     def _select_train_action(self, state_index):
-        """Helper function to selection a train action based on the adaptive epsilon greedy mechanism.
+        """Select train action based on the adaptive epsilon greedy mechanism.
 
         Args:
             state_index:
