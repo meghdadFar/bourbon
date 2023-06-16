@@ -24,10 +24,10 @@ To solve your problem via RL, you should be able to define a **state space**, a 
 the state of the problem and the reward function assigns a reward to each action.  
 
 
-State Space
-~~~~~~~~~~~~
-The first thing that we should consider is mapping our problem to a state space. There are two ways to define the state for your problem.
-The first way is via a state vector of arbitrary size made of natural numbers {1, 2, 3, ...}. A classic example is the following grid. As you see, 
+Environment
+~~~~~~~~~~~
+The first thing that we should consider is mapping our problem to an environment. An environment can be deterministic or stochastic and is represented by a state space. There are two ways to define the state for your problem.
+The state space can be represented in two ways. The first way is via a state vector of arbitrary size made of natural numbers {1, 2, 3, ...}. A classic example is the following grid. As you see, 
 our space is 2-dimensional, each state has an index and in total there are 9 states. The goal of the agent is to reach the GOAL state where it receives a
 reward of 10 by moving around on the grid.
 
@@ -39,15 +39,13 @@ Actions
 Actions can be defined as a set of operations that the RL agent can carry out. For instance, in the grid example above,
 the agent has 4 actions available to it which are moving to the LEFT, RIGHT, DOWN, UP.
 
+
 Rewards
 ~~~~~~~
-When the agent performs action `a`` in state `s` it receives a reward from a reward function. You should be able to define
-your own reward function, before you can apply reinforcement learning to your problem. In the grid example:
-
-
-Discounted Future Rewards
--------------------------
-Q-function and is defined as `Q(s,a)` and calculates the **discounted future reward**.
+The goal of an RL agent is to maximize the future reward. There are two types of rewards in RL, namely
+immediate reward where the agent receives an immediate reward at each time step based on its action and delayed reward
+where the agent receives a reward only at the end of an episode or after a sequence of actions. You should be able to define
+your own reward function, before you can apply reinforcement learning to your problem.
 
 
 Examples
