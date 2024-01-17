@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "kandula"
+name = "bourbon"
 version = "0.0.2"
-description = "Kandula is a Python package for general Reinforcement Learning."
+description = "Bourbon is a Python package for general Reinforcement Learning."
 authors = ["meghdadFar <meghdad.farahmand@gmail.com>"]
 readme = "README.rst"
-include = ["kandula"]
+include = ["bourbon"]
 license = "MIT"
 keywords = ["Reinforcement Learning"]
 
