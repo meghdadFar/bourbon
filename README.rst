@@ -31,7 +31,12 @@ The state space can be represented in two ways. The first way is via a state vec
 our space is 2-dimensional, each state has an index and in total there are 9 states. The goal of the agent is to reach the GOAL state where it receives a
 reward of 10 by moving around on the grid.
 
-.. image:: docs/figs/rlgrid.png
+
+.. raw:: html
+
+   <p align="center">
+       <img src="docs/figs/rlgrid.png" alt="State space, and rewards for each state. The agent is shown in orange, and the goal state is in green.">
+   </p>
 
 
 Actions
