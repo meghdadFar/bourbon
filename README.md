@@ -1,9 +1,5 @@
 # Bourbon
 
-[![PyPI](https://img.shields.io/pypi/v/bourbon)](https://pypi.org/project/bourbon/)
-[![Python Version](https://img.shields.io/pypi/pyversions/bourbon)](https://pypi.org/project/bourbon/)
-[![License](https://img.shields.io/pypi/l/bourbon)](https://github.com/meghdadFar/bourbon/blob/main/LICENSE)
-
 **Bourbon** is a Python package for Reinforcement Learning (RL), focusing on RL-based training of Large Language Models (LLMs).
 It's an experimentation project built on top of PyTorch and the following research papers:
 
@@ -11,6 +7,10 @@ It's an experimentation project built on top of PyTorch and the following resear
 [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/pdf/2210.03629)
 
 The focus is to use natural language feedback as a reward signal to train LLMs to 1. solve a task via reasoning and acting, and 2. to improve the performance of LLMs on a given task via verbal self-reflection and to align the model's behavior with human preferences.
+
+[![PyPI](https://img.shields.io/pypi/v/bourbon)](https://pypi.org/project/bourbon/)
+<!-- [![Python Version](https://img.shields.io/pypi/pyversions/bourbon?label=Python)](https://pypi.org/project/bourbon/) -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/meghdadFar/bourbon/blob/main/LICENSE)
 
 ## Quick Start
 
