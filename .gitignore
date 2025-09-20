@@ -136,6 +136,7 @@ dmypy.json
 
 # Current
 tmp* 
-venv3/
-venv*
-.data/
+.venv/
+.env/
+.env.*
+
