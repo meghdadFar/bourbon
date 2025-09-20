@@ -12,7 +12,9 @@ from bourbon.steps import RLStep
 
 
 class Egreedy:
-    """Represents the parameters of Adaptive Epsilon Greedy (E-greedy) algorithm."""
+    """Represents the parameters of Adaptive Epsilon Greedy (E-greedy) algorithm.
+    E-greedy is a simple method to balance exploration and exploitation by selecting a random action
+    """
 
     def __init__(
         self, egreedy_first: float, egreedy_decay: float, egreedy_last: float

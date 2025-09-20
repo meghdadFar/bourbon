@@ -8,6 +8,11 @@ import torch
 class QTable:
     """
     Represents a Q-table.
+    The Q-table is a data structure used in Q-learning to store the estimated values of state-action pairs.
+    It is typically implemented as a 2D array or matrix, where each row represents a state and each column represents an action.
+    Each entry in the table contains the estimated Q-value for the corresponding state-action pair.
+
+    The Q-table is updated iteratively during the learning process based on the Q-learning algorithm.
 
     Example:
         >>> state_space=[5, 5]
