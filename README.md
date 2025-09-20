@@ -4,6 +4,7 @@
 It's an experimentation project built on top of PyTorch and the following research papers:
 
 [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/pdf/2303.11366)
+
 [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/pdf/2210.03629)
 
 The focus is to use natural language feedback as a reward signal to train LLMs to 1. solve a task via reasoning and acting, and 2. to improve the performance of LLMs on a given task via verbal self-reflection and to align the model's behavior with human preferences.
