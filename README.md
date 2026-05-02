@@ -1,6 +1,6 @@
 # Bourbon
 
-**Bourbon** is a Python package for Reinforcement Learning (RL), focusing on RL-based training of Large Language Models (LLMs).
+**Bourbon** is a Python package for Reinforcement Learning (RL). It's a work in progress. Right now it implements Q-table based RL methods but a pivot is planned towards RL-based training of Large Language Models (LLMs).
 It's an experimentation project built on top of PyTorch and the following research papers:
 
 [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/pdf/2303.11366)
