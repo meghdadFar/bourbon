@@ -1,13 +1,12 @@
 # Bourbon
 
-**Bourbon** is a Python package for Reinforcement Learning (RL). It's a work in progress. Right now it implements Q-table based RL methods but a pivot is planned towards RL-based training of Large Language Models (LLMs).
-It's an experimentation project built on top of PyTorch and the following research papers:
+**Bourbon** is a Python package for reinforcement learning. The current implementation provides tabular Q-learning on classic toy environments (gridworld, etc.). Future work extends these primitives toward RL-based fine-tuning of language models, drawing on the research papers listed below.
 
 [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/pdf/2303.11366)
 
 [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/pdf/2210.03629)
 
-The focus is to use natural language feedback as a reward signal to train LLMs to 1. solve a task via reasoning and acting, and 2. to improve the performance of LLMs on a given task via verbal self-reflection and to align the model's behavior with human preferences.
+The focus will be to use natural language feedback as a reward signal to train LLMs to 1. solve a task via reasoning and acting, and 2. to improve the performance of LLMs on a given task via verbal self-reflection and to align the model's behavior with human preferences.
 
 [![PyPI](https://img.shields.io/pypi/v/bourbon)](https://pypi.org/project/bourbon/)
 <!-- [![Python Version](https://img.shields.io/pypi/pyversions/bourbon?label=Python)](https://pypi.org/project/bourbon/) -->
